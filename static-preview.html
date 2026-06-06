@@ -1,0 +1,228 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Decode Siyu Chen Static Preview</title>
+    <style>
+      :root {
+        --ink: #191817;
+        --muted: #68615d;
+        --line: rgba(25, 24, 23, 0.13);
+        --blue: #83cde2;
+        --orange: #df895e;
+        --violet: #b4a3ff;
+        --green: #81bfa5;
+        font-family: Inter, "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; scroll-snap-type: y proximity; }
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 10% 10%, rgba(131, 205, 226, 0.55), transparent 30rem),
+          radial-gradient(circle at 85% 18%, rgba(223, 137, 94, 0.23), transparent 28rem),
+          linear-gradient(135deg, #f8fbfb, #fbf7ef 52%, #eef8f4);
+      }
+      button, a { font: inherit; color: inherit; }
+      button { cursor: pointer; }
+      a { text-decoration: none; }
+      .nav {
+        position: fixed; top: 16px; left: 50%; z-index: 20;
+        display: flex; width: min(1120px, calc(100vw - 28px));
+        transform: translateX(-50%); align-items: center; justify-content: space-between;
+        gap: 14px; padding: 10px 12px; border: 1px solid rgba(255,255,255,.72);
+        border-radius: 18px; background: rgba(255,255,255,.7); backdrop-filter: blur(18px);
+        box-shadow: 0 18px 55px rgba(42,53,63,.12);
+      }
+      .brand { font-weight: 900; border: 0; background: transparent; }
+      .brand::first-letter {
+        background: var(--ink); color: white; border-radius: 50%; padding: 6px 10px; margin-right: 8px;
+      }
+      nav { display: flex; gap: 4px; }
+      nav button, .lang, .btn {
+        min-height: 38px; border: 1px solid transparent; border-radius: 999px;
+        background: transparent; padding: 0 12px;
+      }
+      nav button:hover, .lang:hover, .btn:hover { background: white; border-color: var(--line); }
+      .panel {
+        min-height: 100vh; scroll-snap-align: start; display: flex; flex-direction: column;
+        justify-content: center; padding: 116px 28px 70px;
+      }
+      .inner { width: min(1120px, 100%); margin: 0 auto; }
+      .hero-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 28px; }
+      .glass {
+        border: 1px solid rgba(255,255,255,.72); border-radius: 26px;
+        background: rgba(255,255,255,.62); backdrop-filter: blur(20px);
+        box-shadow: 0 24px 70px rgba(42,53,63,.12);
+      }
+      .hero-copy { min-height: 570px; display: flex; flex-direction: column; justify-content: flex-end; padding: 42px; }
+      .eyebrow { margin: 0 0 12px; color: #7c695e; font-size: 12px; font-weight: 900; letter-spacing: .08em; text-transform: uppercase; }
+      h1 { margin: 0; max-width: 8ch; font-size: clamp(62px, 11vw, 142px); line-height: .88; }
+      h2 { margin: 0 0 16px; font-size: clamp(34px, 5.4vw, 76px); line-height: .95; }
+      h3 { margin: 0; font-size: clamp(22px, 2.4vw, 34px); }
+      p { color: var(--muted); line-height: 1.75; }
+      .subtitle { color: #3c3835; font-weight: 900; }
+      .cta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+      .cta .btn:first-child, .active { background: var(--ink) !important; color: white !important; }
+      .visual { position: relative; min-height: 570px; overflow: hidden; background: linear-gradient(180deg, rgba(131,205,226,.6), rgba(255,255,255,.55)); }
+      .photo {
+        position: absolute; right: 10%; bottom: 0; width: min(330px, 48%); height: 74%;
+        display: grid; place-items: center; border: 1px dashed rgba(25,24,23,.3);
+        border-radius: 50% 50% 0 0; color: rgba(25,24,23,.55); font-size: 54px; font-weight: 950;
+        background: repeating-linear-gradient(135deg, rgba(25,24,23,.04) 0 8px, transparent 8px 18px);
+      }
+      .big { position: absolute; left: 34px; right: 24px; bottom: 48px; font-size: clamp(58px, 8vw, 118px); font-weight: 950; line-height: .78; mix-blend-mode: multiply; }
+      .tag { position: absolute; border: 0; background: transparent; font-weight: 900; text-align: left; }
+      .t1 { top: 20%; left: 7%; } .t2 { top: 18%; right: 8%; } .t3 { top: 48%; left: 8%; } .t4 { top: 45%; right: 7%; }
+      .head { width: min(1040px, 100%); margin: 0 auto 28px; }
+      .tabs, .chips, .actions { display: flex; flex-wrap: wrap; gap: 10px; }
+      .tabs button, .chips span, .emotion button {
+        min-height: 42px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.6); padding: 0 16px;
+      }
+      .card { padding: 28px; }
+      .grid { display: grid; gap: 14px; }
+      .three { grid-template-columns: repeat(3, 1fr); }
+      .four { grid-template-columns: repeat(4, 1fr); }
+      .five { grid-template-columns: repeat(5, 1fr); }
+      .sor button, .stop, .flip, .badge { min-height: 150px; text-align: left; }
+      .sor button, .stop, .flip, .badge, .phone, .resume-box { border: 1px solid rgba(255,255,255,.72); border-radius: 22px; background: rgba(255,255,255,.64); padding: 22px; box-shadow: 0 18px 50px rgba(42,53,63,.1); }
+      .route { position: relative; }
+      .route::before { content: ""; position: absolute; left: 7%; right: 7%; top: 50%; height: 4px; border-radius: 999px; background: linear-gradient(90deg, var(--blue), var(--orange), var(--green)); }
+      .stop { position: relative; z-index: 1; }
+      .phone-wrap { display: grid; grid-template-columns: .8fr 360px; gap: 28px; align-items: center; }
+      .emotion { display: flex; flex-direction: column; gap: 10px; }
+      .phone { min-height: 520px; border-radius: 36px; }
+      .msg { border-radius: 18px; padding: 16px; margin: 14px 0; background: rgba(131,205,226,.22); }
+      .user { justify-self: end; background: var(--ink); color: white; }
+      .orbit { min-height: 340px; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px; }
+      .orbit strong { display: grid; width: 160px; height: 160px; place-items: center; border-radius: 50%; background: var(--ink); color: white; text-align: center; }
+      .toast { position: fixed; right: 28px; bottom: 28px; z-index: 30; background: var(--ink); color: white; border-radius: 999px; padding: 14px 18px; display: none; }
+      .fade { opacity: 0; transform: translateY(28px); transition: .7s ease; }
+      .fade.show { opacity: 1; transform: translateY(0); }
+      @media (max-width: 900px) {
+        html { scroll-snap-type: none; }
+        nav { display: none; }
+        .hero-grid, .three, .four, .five, .phone-wrap { grid-template-columns: 1fr; }
+        .route::before { display: none; }
+      }
+      @media (max-width: 560px) {
+        .panel { padding: 98px 16px 58px; }
+        .hero-copy, .visual { min-height: 520px; padding: 26px; }
+        h1 { font-size: clamp(54px, 20vw, 88px); }
+        .photo { width: 62%; right: 2%; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="nav">
+      <button class="brand" onclick="go('hero')">S Decode Siyu</button>
+      <nav id="nav"></nav>
+      <button class="lang" onclick="toggleLang()">中文 | EN</button>
+    </header>
+    <main id="app"></main>
+    <div class="toast" id="toast"></div>
+    <script>
+      const copy = {
+        zh: {
+          nav: ["封面", "研究", "实习", "项目", "简历视角", "联系"],
+          heroTitle: "解码陈思语",
+          big: "UNLOCK SIYU",
+          subtitle: "商业分析 · 生成式 AI 研究 · 产品思维 · AI 辅助创作",
+          body: "我关注生成式 AI、消费者行为、数据分析与产品体验设计，希望把研究洞察转化为可被理解、可被使用、可被展示的作品。",
+          about: "选择一个视角认识我",
+          aboutText: "研究者、构建者、沟通者：用数据理解问题，用 AI 工具生成原型，用视觉表达讲清复杂内容。",
+          research: "GenAI 消费者研究实验室",
+          researchSub: "研究生成式 AI 特征如何通过用户参与影响消费者购买意愿。",
+          internship: "实习观察地图",
+          internshipSub: "从线下金融服务，到数字内容运营，再到品牌市场传播。",
+          hackathon: "Another Me：情绪信息流模拟器",
+          hackathonSub: "面向大学生升学焦虑、就业压力与求职信息获取效率低等痛点的 AI 情绪陪伴与行动支持产品概念。",
+          workflow: "从 Prompt 到 Prototype",
+          skills: "技能轨道",
+          awards: "成就徽章柜",
+          resume: "为不同岗位切换简历视角",
+          contact: "发送一个信号",
+          emailNote: "邮箱已复制，期待与你联系。",
+          contactNote: "如果你想了解一个能连接研究、商业、AI 工具和产品表达的人，欢迎联系我。"
+        },
+        en: {
+          nav: ["Home", "Research", "Internship", "Projects", "Resume Lens", "Contact"],
+          heroTitle: "Decode Siyu Chen",
+          big: "UNLOCK SIYU",
+          subtitle: "Business Analytics · GenAI Research · Product Thinking · AI-assisted Creation",
+          body: "I work at the intersection of GenAI research, consumer insight, data analysis, and product experience design, turning ideas into structured and interactive work.",
+          about: "Choose a Lens to Know Me",
+          aboutText: "Researcher, Builder, Communicator: using data to understand problems, AI tools to prototype, and visual storytelling to clarify complex ideas.",
+          research: "GenAI Consumer Lab",
+          researchSub: "Exploring how GenAI characteristics influence purchase intention through user engagement.",
+          internship: "Internship Field Notes",
+          internshipSub: "From offline financial service, to digital content operation, to brand marketing communication.",
+          hackathon: "Another Me: Information Flow Simulator",
+          hackathonSub: "An AI emotional companion and action-support concept for students facing academic anxiety, career pressure, and inefficient job-search information access.",
+          workflow: "From Prompt to Prototype",
+          skills: "Skill Orbit",
+          awards: "Achievement Badges",
+          resume: "Choose a Resume Lens",
+          contact: "Send a Signal",
+          emailNote: "Email copied. Looking forward to connecting.",
+          contactNote: "If you are looking for someone who connects research, business, AI tools, and product expression, I would be happy to connect."
+        }
+      };
+      const email = "chsiyu0902@163.com";
+      let lang = "zh";
+      const ids = ["hero", "research", "internship", "hackathon", "resume", "contact"];
+      const sorZh = [["刺激因素", "感知易用性、交互性、个性化"], ["内在反应", "消费者认知投入与行为投入"], ["行为结果", "购买意愿"]];
+      const sorEn = [["Stimulus", "Perceived ease of use, interactivity, personalization"], ["Organism", "Consumer cognitive and behavioral engagement"], ["Response", "Purchase intention"]];
+      const stopsZh = ["金融服务现场", "数字内容运营", "品牌与市场传播"];
+      const stopsEn = ["Financial Service Field", "Digital Content Operation", "Brand and Marketing Communication"];
+      function go(id) { document.getElementById(id).scrollIntoView({ behavior: "smooth" }); }
+      function button(label, target) { return `<button onclick="go('${target}')">${label}</button>`; }
+      function render() {
+        const t = copy[lang];
+        document.documentElement.lang = lang === "zh" ? "zh-CN" : "en";
+        document.querySelector(".lang").textContent = lang === "zh" ? "中文 | EN" : "EN | 中文";
+        document.getElementById("nav").innerHTML = t.nav.map((x, i) => button(x, ids[i])).join("");
+        const sor = lang === "zh" ? sorZh : sorEn;
+        const stops = lang === "zh" ? stopsZh : stopsEn;
+        document.getElementById("app").innerHTML = `
+          <section class="panel" id="hero"><div class="inner hero-grid">
+            <div class="glass hero-copy fade"><p class="eyebrow">Chinese-first · Interview Portfolio</p><h1>${t.heroTitle}</h1><p class="subtitle">${t.subtitle}</p><p>${t.body}</p><div class="cta"><button class="btn active" onclick="go('research')">${lang === "zh" ? "查看项目" : "View Projects"}</button><button class="btn" onclick="go('contact')">${lang === "zh" ? "联系我" : "Contact Me"}</button></div></div>
+            <div class="glass visual fade"><div class="photo">Photo</div><button class="tag t1" onclick="go('research')">Data Lens</button><button class="tag t2" onclick="go('hackathon')">AI Lens</button><button class="tag t3" onclick="go('resume')">Product Lens</button><button class="tag t4" onclick="go('internship')">Marketing Lens</button><div class="big">${t.big}</div></div>
+          </div></section>
+          <section class="panel" id="about"><div class="head fade"><p class="eyebrow">Lens System</p><h2>${t.about}</h2><p>${t.aboutText}</p></div><div class="inner glass card fade"><div class="chips"><span>Researcher</span><span>Builder</span><span>Communicator</span><span>Codex</span><span>SEM / CFA</span></div></div></section>
+          <section class="panel" id="research"><div class="head fade"><p class="eyebrow">Research Lab</p><h2>${t.research}</h2><p>${t.researchSub}</p></div><div class="inner grid three sor fade">${sor.map(x => `<button><h3>${x[0]}</h3><p>${x[1]}</p></button>`).join("")}</div><div class="inner grid five fade" style="margin-top:18px">${["320 valid responses", "S-O-R", "SEM / CFA", "Mediation", "Poster Award"].map(x => `<div class="flip">${x}</div>`).join("")}</div></section>
+          <section class="panel" id="internship"><div class="head fade"><p class="eyebrow">Field Notes</p><h2>${t.internship}</h2><p>${t.internshipSub}</p></div><div class="inner grid three route fade">${stops.map((x, i) => `<button class="stop"><h3>${i + 1}. ${x}</h3><p>${["安徽广德农村商业银行", "安徽云掌财经科技有限公司", "安徽黄埔文化集团有限公司"][i]}</p></button>`).join("")}</div></section>
+          <section class="panel" id="hackathon"><div class="head fade"><p class="eyebrow">Product Demo</p><h2>${t.hackathon}</h2><p>${t.hackathonSub}</p></div><div class="inner phone-wrap fade"><div class="emotion">${["升学压力", "就业迷茫", "简历焦虑", "面试紧张", "无处诉说"].map((x, i) => `<button onclick="setEmotion(${i})">${lang === "zh" ? x : ["Academic pressure","Career confusion","Resume anxiety","Interview stress","Nowhere to talk"][i]}</button>`).join("")}</div><div class="phone"><div class="msg user" id="emo">就业迷茫</div><div class="msg" id="reply">我听见你的不确定。我们先把焦虑变成今天可完成的一小步。</div><div class="msg">1. ${lang === "zh" ? "修改一条简历经历" : "Improve one resume bullet"}<br>2. ${lang === "zh" ? "收藏三个合适岗位" : "Save three suitable job posts"}<br>3. ${lang === "zh" ? "记录一个面试问题" : "Record one interview question"}</div></div></div></section>
+          <section class="panel" id="workflow"><div class="head fade"><p class="eyebrow">AI Workflow</p><h2>${t.workflow}</h2></div><div class="inner glass card fade"><pre>&gt; analyzing user pain point...\n&gt; generating interface structure...\n&gt; building interaction flow...\n&gt; testing responsive layout...\n&gt; prototype ready.</pre></div></section>
+          <section class="panel" id="skills"><div class="head fade"><p class="eyebrow">Orbit</p><h2>${t.skills}</h2></div><div class="inner glass orbit fade"><strong>Siyu Skill Core</strong>${["SPSS","AMOS","Excel","Codex","Claude Code","Gemini","Prompt","SQL","Figma"].map(x => `<span class="chips"><span>${x}</span></span>`).join("")}</div></section>
+          <section class="panel" id="awards"><div class="head fade"><p class="eyebrow">Badges</p><h2>${t.awards}</h2></div><div class="inner grid four fade">${["Outstanding Research Poster Award","WKU Student Research Day 2026","Douyin AI Creator Program Hackathon","Senior Thesis"].map(x => `<div class="badge">${x}</div>`).join("")}</div></section>
+          <section class="panel" id="resume"><div class="head fade"><p class="eyebrow">Interview Lens</p><h2>${t.resume}</h2></div><div class="inner resume-box fade"><div class="tabs"><button class="active">Marketing</button><button>Product / UX</button><button>Data / Research</button></div><p>${lang === "zh" ? "面试官可以快速切换到最关心的经历与技能。" : "Interviewers can quickly switch to the experience and skills they care about most."}</p></div></section>
+          <section class="panel" id="contact"><div class="head fade"><p class="eyebrow">Signal</p><h2>${t.contact}</h2><p>${t.contactNote}</p></div><div class="actions inner fade"><button class="btn active" onclick="copyEmail()">${lang === "zh" ? "复制邮箱" : "Copy Email"}</button><a class="btn" href="#">${lang === "zh" ? "下载简历" : "Download Resume"}</a><a class="btn" href="#">GitHub</a><a class="btn" href="#">LinkedIn</a></div><p style="text-align:center">${email}</p></section>`;
+        observe();
+      }
+      function toggleLang() { lang = lang === "zh" ? "en" : "zh"; render(); }
+      function copyEmail() {
+        navigator.clipboard && navigator.clipboard.writeText(email);
+        const toast = document.getElementById("toast");
+        toast.textContent = copy[lang].emailNote;
+        toast.style.display = "block";
+        setTimeout(() => toast.style.display = "none", 2200);
+      }
+      function setEmotion(i) {
+        const zh = ["升学压力", "就业迷茫", "简历焦虑", "面试紧张", "无处诉说"];
+        const en = ["Academic pressure", "Career confusion", "Resume anxiety", "Interview stress", "Nowhere to talk"];
+        const repliesZh = ["我听见你的压力。先把大目标拆成今天可完成的一步。", "我听见你的不确定。我们先把焦虑变成今天可完成的一小步。", "简历不是一次写完的作品。今天只优化一条经历就够了。", "紧张说明你很在意。我们先准备一个可以稳定开场的回答。", "你可以先把话放在这里，我会陪你整理成可行动的信息。"];
+        const repliesEn = ["I hear your pressure. Let us break the big goal into one small action today.", "I hear your uncertainty. Let us turn anxiety into one small action today.", "A resume is not finished at once. Improving one bullet today is enough.", "Nervousness means you care. Let us prepare one steady opening answer first.", "You can put the words here first. I will help turn them into actionable information."];
+        document.getElementById("emo").textContent = (lang === "zh" ? zh : en)[i];
+        document.getElementById("reply").textContent = (lang === "zh" ? repliesZh : repliesEn)[i];
+      }
+      function observe() {
+        const io = new IntersectionObserver(entries => entries.forEach(e => e.isIntersecting && e.target.classList.add("show")), { threshold: .18 });
+        document.querySelectorAll(".fade").forEach(el => io.observe(el));
+      }
+      render();
+    </script>
+  </body>
+</html>

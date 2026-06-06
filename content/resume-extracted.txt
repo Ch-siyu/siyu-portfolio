@@ -1,0 +1,166 @@
+==== 陈思语_中文简历_2026.docx ====
+陈思语  Siyu Chen
+Tel: +86-18005630093 | Email: chsiyu0902@163.com
+基本信息
+学校：温州肯恩大学｜学院：商务与公共管理学院（CBPM）
+专业：管理学（商业分析方向）｜英语水平：IELTS 6.0
+教育背景
+布里斯托大学（University of Bristol）
+英国布里斯托
+市场营销硕士（Marketing MSc）
+2026.09–2027.09（预计）
+温州肯恩大学，商务与公共管理学院（CBPM）
+中国浙江温州
+管理学理学学士（商业分析方向）
+2022.08–2026.06
+GPA：3.55/4.0
+相关课程：微积分、商业统计学、经济学原理、会计学原理、市场营销原理、公司金融、管理信息系统、数据库管理、商业数据挖掘、商业分析基础、商业研究与分析、Python商业编程等。
+Coursera证书：斯坦福大学《统计学导论》、约翰霍普金斯大学《线性代数》
+科研经历
+独立研究项目：生成式人工智能（GenAI）特征对消费者购买意愿的影响研究
+毕业论文
+2025.10–2025.12
+研究工具: AMOS, SPSS, Excel
+研究方法: 结构方程模型（SEM）分析，验证性因子分析（CFA）, 中介与调节效应检验
+基于S-O-R理论框架，研究生成式AI聊天机器人中的感知易用性、交互性与个性化如何通过消费者认知与行为投入影响购买意愿。
+设计调查问卷，并面向中国四大经济区域发放，收集320份具有生成式AI（GenAI）使用经验的有效消费者样本。
+使用AMOS进行结构方程模型（SEM）分析，包括验证性因子分析（CFA）、路径分析、中介与调节效应检验。
+发现“AI熟悉度”会负向调节“易用性”对用户投入的影响，为AI营销策略的用户分层提供新的研究视角。
+在2026年温州肯恩大学学生科研日（Student Research Day 2026）中，以学术海报形式展示研究成果。
+荣誉与奖项
+优秀研究海报奖
+2026年温州肯恩大学学生科研日｜温州肯恩大学
+2026.04
+因通过学术海报展示关于生成式人工智能与消费者购买意愿的毕业论文研究，获得优秀研究海报奖。
+数据分析项目
+PWCES工作投入数据集深度分析
+2025.03–2025.04
+使用R分析PWCES问卷数据，评估影响“工作满意度”的关键因素。
+构建并比较多个多元线性回归模型，证明加入“工作压力”变量后模型预测力提升。
+通过平均绝对误差（MAE）、均方根误差（RMSE）、决定系数（R²）、AIC与BIC评估模型，确认完整模型具有较优表现。
+以正式APA格式报告总结研究洞察和方法，并包含可视化图表与统计结果解释。
+SQL商业数据分析与报告项目
+2025.01–2025.03
+通过多表SQL操作整合产品、供应商与客户数据，支持精准商业分析。
+使用聚合函数和高级分组语句（如：GROUP BY、HAVING、ROLLUP）进行多维销售分析。
+通过集合运算（如：UNION/INTERSECT）识别不同区域中的共同产品特征。
+通过表结构更新与修改（如：ALTER TABLE）优化数据质量和处理效率。
+AI与数字项目
+抖音 AI 创变者计划黑客松（温州）
+2026.05.30–5.31
+UI设计与前端协作成员项目成果：黑客松三等奖｜完成可交互产品 Demo
+围绕大学生升学焦虑、就业压力与求职信息获取效率低等痛点，参与产品定位、用户场景分析与 MVP 方案讨论，协助设计基于抖音信息流卡片的就业信息触达机制。
+参与构建“就业信息支持 + 情绪陪伴 + 数字伙伴”的 AI 产品概念，将学生压力场景转化为可展示、可交互的产品原型。
+负责部分 UI 视觉设计与展示素材制作，完成数字动物形象、项目海报、展示截图、视频素材及文案内容，提升 Demo 的年轻化表达与视觉一致性。
+参与部分前端页面搭建与素材嵌入，协助完成 2 个页面/模块的 UI 落地，推动团队在黑客松周期内完成可交互 Demo 并获得三等奖。
+人工智能辅助交互式网页项目
+2026.04–2026.06
+使用Claude Code与OpenAI Codex辅助浏览器端交互式原型开发。
+运用提示词工程优化用户界面交互与游戏逻辑。
+通过GitHub Pages部署网页项目，用于在线测试与分享。
+实习经历
+安徽黄埔文化集团有限公司
+中国安徽合肥
+市场部实习生
+2025.07–2025.08
+使用Excel分析来自电商平台、社交媒体与问卷的用户反馈，计算正负面评价比例，并识别用户画像中的关键关注点。
+跟踪竞品及竞争对手的营销活动更新，分析其社交媒体表现，并总结用户反馈（如“客服响应较慢”）以支持差异化策略。
+调研目标客户偏好与竞品亮点，为数据驱动的活动策划提供支持。
+安徽云掌金融科技有限公司
+中国安徽合肥
+新媒体运营实习生
+2024.07–2024.08
+支持股票分析师日常直播，使用Excel记录关键技术分析观点与政策信息。
+将直播内容二次整理为短视频脚本与语录素材库，用于抖音平台内容发布，提升内容复用率与传播效率。
+通过结构优化、数据核查和互动功能设计，优化长篇金融文章内容。
+参与公众号日常运营，包括图文排版设计与运营数据跟踪。
+安徽广德农村商业银行股份有限公司
+中国安徽广德
+总部业务部实习生
+2023.07–2023.08
+编写《2023年6/7月业务经营分析报告》，独立完成数据收集、深度分析、报告结构设计与内容撰写。
+使用Excel进行多维业务数据分析，覆盖存款结构、贷款类型分布、客户覆盖率与年龄分层等关键指标。
+独立整理分析结果，并形成标准化Word报告。
+校园经历
+温州肯恩大学 共青团支部宣传委员
+2022.08–2026.06
+• 撰写并发布20余篇会议纪要、新闻稿与活动总结，用于支部社交媒体平台。
+• 组织并主持10余次主题团日活动，平均参与率达到95%。
+自主学习
+主动探索人工智能辅助软件开发流程、应用程序接口（API）概念与数字产品原型开发，并通过自主学习和实践不断熟悉新兴人工智能工具的使用方式。
+其他信息
+技能: Microsoft Office, Power BI, Tableau, Python, R, SQL
+人工智能辅助开发工具: Claude Code, OpenAI Codex, Prompt Engineering, GitHub, Gemini
+爱好: 钢琴、中国古典舞、游泳
+
+==== Siyu Chen_Resume_2026.docx ====
+EDUCATION
+University of Bristol Wristol, UK
+Marketing (MSc) | Conditional Offer Received         Sep. 2026–Sep. 2027 (expected)
+Wenzhou-Kean University | College of Business and Public Management Wenzhou, Zhejiang Province, China
+Bachelor of Science in Management ( Business Analytics Option)         Aug. 2022–Jun. 2026
+Weighted GPA: 3.55/4.0
+Relevant Courses: Calculus I, Business Statistics, Principles of Economics I&II, Principles of Accounting I&II, Principles of Management, Principles of Marketing, Corporate Finance, Management Information Systems, Database Management, Data Mining in Business, Foundations of Business Anaytics, Research and Analytics, Python Programming for Business
+Coursera Certificates: Introduction to Statistics (Stanford), Linear Algebra (JHU)
+RESEARCH EXPERIENCE
+Independent Research Project: The Impact of GenAI Characteristics on Consumer Purchase Intention
+Senior Thesis Oct. 2025–Dec.2025
+Tools: AMOS, SPSS, Excel
+Methodology: SEM, CFA, moderation & mediation analysis
+Investigated how Perceived Ease of Use, Interactivity, and Personalization of GenAI chatbots influence purchase decisions through the mediating roles of behavioral and cognitive engagement, based on the S-O-R framework
+Designed a survey instrument, distributed it across four major economic regions in China, and collected 320 valid responses from consumers with prior GenAI experience
+Performed comprehensive data analysis using Structural Equation Modeling (SEM) in AMOS, including Confirmatory Factor Analysis (CFA), path analysis, and bootstrapping tests for mediation and moderation effects
+Uncovered a critical boundary condition: AI Familiarity negatively moderated the impact of Ease of Use on engagement, providing nuanced insight for segment-specific AI marketing strategies
+Presented findings through academic poster presentation at WKU Student Research Day 2026.
+HONORS & AWARDS
+Outstanding Research Poster Award
+2026 WKU Student Research Day | Wenzhou-Kean UniversityApr. 2026
+Received university-level recognition for presenting senior thesis research on Generative AI and consumer purchase intention through an academic poster presentation.
+PROFESSIONAL EXPERIENCE
+Anhui Huangpu Culture Group Co., Ltd.                                      Hefei, China
+Marketing Intern, Marketing DepartmentJul. 2025–Aug. 2025
+Analyzed user feedback from e-commerce, social media, and surveys using Excel; calculated positive/negative rates and identified key concerns to support user profiling
+Monitored competitors’ product and campaign updates, analyzing social media presence and summarizing feedback (e.g., “slow customer service response”) to guide differentiation strategies
+Researched target customer preferences and competitor highlights to assist in data-driven event planning
+Anhui Yunzhang Finance Technology Co., Ltd.  Hefei, China
+New Media Operations Intern, New Media Department Jul. 2024–Aug. 2024
+Supported daily stock analyst live streams, documenting key technical and policy insights in Excel
+Repurposed live content into video scripts and a quote library for Douyin, enhancing content reuse and reach
+Optimized long-form financial articles through structural improvements, data verification, and interactive features
+Managed public account operations, including layout design and performance tracking
+Anhui Guangde Rural Commercial Bank Co., Ltd. Guangde, China
+Business Intern, Headquarters Business Department              Jul. 2024–Aug. 2024
+Compiled “Business Operations Report for June/July 2023”, independently carrying out data collection, in-depth analysis, report structuring, and content writing
+Conducted multidimensional business data analysis using Excel, covering key metrics such as deposit structure, loan type distribution, customer coverage, and age stratification
+Independently organized and delivered analysis results in the form of standardized Word reports
+DATA ANALYTICS PROJECTS
+In-depth Analysis of PWCES Work Engagement DatasetWenzhou, China｜Mar. 2025–Apr. 2025
+Performed data analysis on PWCES survey data using R to evaluate key factors affecting job satisfaction
+Built and compared multiple linear regression models, demonstrating that inclusion of work stress improved predictive power
+Evaluated models via MAE, RMSE, R², AIC, and BIC, confirming the full model’s optimal performance
+Summarized insights and methodology in a formal APA-style report, including visualizations and statistical interpretations
+Data Analysis and Business Reporting with SQL Jan. 2025–Mar. 2025
+Integrated data from product, supplier, and customer sources via multi-table SQL operations to enable precise business analytics
+Conducted multi-dimensional sales analysis using aggregate functions and advanced grouping (GROUP BY, HAVING, ROLLUP)
+Identified common product features across regions through set operations (UNION/INTERSECT)
+Optimized data quality and processing efficiency by performing table updates and structural modifications (ALTER TABLE)
+AI & DIGITAL PROJECTS
+AI-Assisted Interactive Web ProjectApr. 2026–Jun. 2026
+Utilized Claude Code and OpenAI Codex to support browser-based interactive prototype development
+Applied prompt engineering to optimize UI interaction and gameplay logic
+Deployed web-based projects through GitHub Pages
+Douyin AI Creator Program Hackathon｜Product Design & Front-end ContributorWenzhou, China
+Achievement: Third Prize｜Delivered an Interactive Product Demo30May -31May 2026
+Participated in product positioning, user scenario analysis, and MVP planning for an AI-powered product addressing university students’ career anxiety, graduation pressure, and job-seeking information gaps.
+Contributed to the core concept combining Douyin-style information flow cards, emotional companionship, digital avatar interaction, and career support to reach students at moments of real need.
+Designed UI assets, digital animal companion visuals, posters, screenshots, video materials, and copywriting content to improve the prototype’s emotional appeal and visual consistency.
+Assisted with front-end page implementation and visual asset integration across 2 pages/modules, helping the team deliver an interactive product demo within the hackathon timeframe and win Third Prize.
+EXTRA-CURRICULAR ACTIVITIES
+Publicity Officer | Communist Youth League Branch, Wenzhou-Kean University Aug. 2022–Jun. 2026
+Drafted and published 20+ meeting minutes, news releases, and event summaries on the branch’s social media platforms
+Organized and hosted 10+ thematic group day activities, maintaining an average participant retention rate of 95%
+ADDITIONAL INFORMATION
+Skills: MS Office, Power BI, Tableau, Python, R, SQL
+AI-assisted development tools: Claude Code, OpenAI Codex, Prompt Engineering, GitHub, Gemini
+Interests: Piano, Classical Chinese Dance, Swimming
+IELTS: Overall Band 6.0

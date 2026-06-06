@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" role="img" aria-label="Contact portrait placeholder">
+  <defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#d7e2ea"/><stop offset=".55" stop-color="#ffffff"/><stop offset="1" stop-color="#efd3ec"/></linearGradient></defs>
+  <rect width="640" height="640" rx="64" fill="url(#g)"/>
+  <circle cx="320" cy="238" r="94" fill="#16191e"/>
+  <path d="M128 612c45-182 121-274 192-274s147 92 192 274" fill="#16191e"/>
+  <text x="320" y="572" text-anchor="middle" font-family="Arial" font-size="42" font-weight="900" fill="#fff">SYLVIE</text>
+</svg>
