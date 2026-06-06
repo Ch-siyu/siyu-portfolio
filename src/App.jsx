@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useRef, useState } from "react";
-import { ArrowLeft, ArrowRight, Download, Languages, Mail, MousePointer2, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, ArrowUp, Download, Languages, Mail, MousePointer2, X } from "lucide-react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { content } from "./data/content.js";
@@ -8,6 +8,28 @@ gsap.registerPlugin(ScrollTrigger);
 
 const asset = (name) => `${import.meta.env.BASE_URL}assets/${name}`;
 const resumePdf = `${import.meta.env.BASE_URL}assets/陈思语_中文简历_2026.pdf`;
+const projectLinks = [
+  { type: "pdf", src: asset("project-01-thesis.pdf"), title: "Graduation thesis preview" },
+  { type: "url", src: "https://another-me-19h.pages.dev/" },
+  { type: "pdf", src: asset("project-03-presentation.pdf"), title: "PWCES presentation preview" },
+];
+const projectImageFiles = [
+  [
+    "04-projects-01-image-Col1image1.png",
+    "04-projects-01-image-Col1image2.png",
+    "04-projects-01-image-Col2.png",
+  ],
+  [
+    "04-projects-02-image-Col1image1.png",
+    "04-projects-02-image-Col1image2.png",
+    "04-projects-02-image-Col2.png",
+  ],
+  [
+    "04-projects-03-image-Col1image1.png",
+    "04-projects-03-image-Colimage2.png",
+    "04-projects-03-image-Col2.png",
+  ],
+];
 
 function scrollToId(id) {
   document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -39,28 +61,42 @@ function Nav({ lang, setLang, t }) {
   );
 }
 
-function BadgeCard({ t }) {
+function BadgeCard({ t, contactLabel, onContact }) {
   return (
     <div className="badge-wrap reveal">
       <div className="lanyard" />
       <div className="badge-flip">
         <div className="badge-inner">
           <div className="badge-face badge-front">
-            <img src={asset("avatar-placeholder.svg")} alt="Siyu portrait placeholder" />
+            <img src={asset("02-about-card-01.png")} alt="Siyu Chen badge portrait" />
             <strong>{t.frontTitle}</strong>
             <span>{t.frontSub}</span>
             <div className="badge-tags">
               {t.tags.map((tag) => (
-                <small key={tag}>[{tag}]</small>
+                <small key={tag}>{tag}</small>
               ))}
             </div>
           </div>
           <div className="badge-face badge-back">
             <strong>{t.backTitle}</strong>
-            <p>{t.backText}</p>
+            <div className="badge-back-content">
+              {t.backHighlights.map((item) => (
+                <p className="badge-highlight" key={item.label}>
+                  <span>{item.label}</span>
+                  {item.value}
+                </p>
+              ))}
+              {t.backDetails.map((item) => (
+                <p className="badge-detail" key={item.label}>
+                  <span>{item.label}</span>
+                  {item.value}
+                </p>
+              ))}
+            </div>
           </div>
         </div>
       </div>
+      <ContactButton onClick={onContact}>{contactLabel}</ContactButton>
     </div>
   );
 }
@@ -73,6 +109,10 @@ function Hero({ t, onResume }) {
     if (!element) return undefined;
     const xTo = gsap.quickTo(element, "x", { duration: 0.35, ease: "power3.out" });
     const yTo = gsap.quickTo(element, "y", { duration: 0.35, ease: "power3.out" });
+    const reset = () => {
+      xTo(0);
+      yTo(0);
+    };
     const move = (event) => {
       const rect = element.getBoundingClientRect();
       const dx = event.clientX - (rect.left + rect.width / 2);
@@ -82,14 +122,22 @@ function Hero({ t, onResume }) {
       yTo(near ? dy / 3 : 0);
     };
     window.addEventListener("mousemove", move);
-    return () => window.removeEventListener("mousemove", move);
+    window.addEventListener("mouseup", reset);
+    window.addEventListener("mouseleave", reset);
+    window.addEventListener("blur", reset);
+    return () => {
+      window.removeEventListener("mousemove", move);
+      window.removeEventListener("mouseup", reset);
+      window.removeEventListener("mouseleave", reset);
+      window.removeEventListener("blur", reset);
+    };
   }, []);
 
   return (
     <section id="home" className="hero-section snap-panel">
       <h1 className="hero-heading reveal">{t.title}</h1>
       <div className="hero-portrait reveal" ref={magnetRef}>
-        <img src={asset("01-hero-card-01.svg")} alt="Portrait placeholder for Siyu Chen" />
+        <img src={asset("01-hero-card-01.png")} alt="Siyu Chen portrait" />
       </div>
       <div className="hero-bottom">
         <p className="hero-tagline reveal">{t.tagline}</p>
@@ -124,13 +172,26 @@ function About({ t }) {
       <img className="about-float cube" src={asset("02-about-cube.svg")} alt="" />
       <img className="about-float bead" src={asset("02-about-bead.svg")} alt="" />
       <img className="about-float ring" src={asset("02-about-ring.svg")} alt="" />
-      <BadgeCard t={t.badge} />
+      <BadgeCard t={t.badge} contactLabel={t.hero.contact} onContact={() => scrollToId("contact")} />
       <div className="about-copy reveal">
         <p className="section-kicker">{t.about.eyebrow}</p>
         <h2 className="hero-heading">{t.about.title}</h2>
         <h3>{t.about.subtitle}</h3>
+        {t.about.subtitleZh && <p className="subtitle-zh">{t.about.subtitleZh}</p>}
         <AnimatedParagraph text={t.about.body} />
-        <ContactButton onClick={() => scrollToId("contact")}>{t.hero.contact}</ContactButton>
+        <div className="education-path" aria-label="Education path">
+          <article className="education-card">
+            <img src={asset("02-about-card-02.png")} alt={t.about.education[0].school} />
+            <h4>{t.about.education[0].school}</h4>
+            <p>{t.about.education[0].years}</p>
+          </article>
+          <ArrowRight className="education-arrow" size={34} />
+          <article className="education-card">
+            <img src={asset("02-about-card-03.png")} alt={t.about.education[1].school} />
+            <h4>{t.about.education[1].school}</h4>
+            <p>{t.about.education[1].years}</p>
+          </article>
+        </div>
       </div>
     </section>
   );
@@ -161,26 +222,31 @@ function Internship({ t }) {
   );
 }
 
-function ProjectCard({ project, index, total, live }) {
-  const images = useMemo(
-    () => [
-      asset(`04-projects-0${index + 1}-image-Col1image1.svg`),
-      asset(`04-projects-0${index + 1}-image-Col1image2.svg`),
-      asset(`04-projects-0${index + 1}-image-Col2.svg`),
-    ],
-    [index],
-  );
+function ProjectCard({ project, index, total, live, onOpenPdf }) {
+  const images = useMemo(() => projectImageFiles[index].map(asset), [index]);
+  const liveTarget = projectLinks[index];
 
   return (
-    <article className="project-stick" style={{ "--offset": `${index * 28}px`, "--scale": 1 - (total - 1 - index) * 0.03 }}>
+    <article className="project-stick" style={{ "--scale": 1 - (total - 1 - index) * 0.025 }}>
       <div className="project-card reveal">
         <div className="project-top">
           <span className="item-number">{project.number}</span>
           <div>
-            <p>{project.category}</p>
+            <p className="project-category">
+              <span>{project.category}</span>
+              {project.categoryZh && <span>{project.categoryZh}</span>}
+            </p>
             <h3>{project.name}</h3>
           </div>
-          <button>{live}</button>
+          {liveTarget.type === "url" ? (
+            <a className="live-project-button" href={liveTarget.src} target="_blank" rel="noreferrer">
+              {live}
+            </a>
+          ) : (
+            <button className="live-project-button" onClick={() => onOpenPdf(liveTarget)}>
+              {live}
+            </button>
+          )}
         </div>
         <p className="project-desc">{project.desc}</p>
         <div className="project-images">
@@ -195,27 +261,59 @@ function ProjectCard({ project, index, total, live }) {
   );
 }
 
-function Projects({ t }) {
+function Projects({ t, onOpenPdf }) {
   return (
     <section id="projects" className="projects-section">
       <p className="section-kicker reveal">{t.projects.eyebrow}</p>
       <h2 className="hero-heading reveal">{t.projects.title}</h2>
       <div className="projects-stack">
         {t.projects.items.map((project, index) => (
-          <ProjectCard project={project} index={index} total={t.projects.items.length} live={t.projects.live} key={project.number} />
+          <ProjectCard
+            project={project}
+            index={index}
+            total={t.projects.items.length}
+            live={t.projects.live}
+            onOpenPdf={onOpenPdf}
+            key={project.number}
+          />
         ))}
       </div>
     </section>
   );
 }
 
-function Marquee() {
+function Marquee({ onPreview }) {
+  const rowOne = [1, 2, 3, 4];
+  const rowTwo = [5, 6, 7, 8, 9];
+  const allImages = [...rowOne, ...rowTwo].map((number) => asset(`05-marquee-image-0${number}.png`));
+
   return (
     <section className="marquee-section">
-      <div className="marquee-track">
+      <div className="marquee-track marquee-row-1">
         {[...Array(3)].flatMap((_, set) =>
-          [1, 2, 3, 4, 5].map((number) => (
-            <img src={asset(`05-marquee-image-0${number}.svg`)} alt="" key={`${set}-${number}`} loading="lazy" />
+          rowOne.map((number) => (
+            <button
+              className="marquee-tile"
+              key={`row-1-${set}-${number}`}
+              onClick={() => onPreview(number - 1, allImages)}
+              aria-label={`Preview marquee image ${number}`}
+            >
+              <img src={asset(`05-marquee-image-0${number}.png`)} alt="" loading="lazy" />
+            </button>
+          )),
+        )}
+      </div>
+      <div className="marquee-track marquee-row-2">
+        {[...Array(3)].flatMap((_, set) =>
+          rowTwo.map((number) => (
+            <button
+              className="marquee-tile"
+              key={`row-2-${set}-${number}`}
+              onClick={() => onPreview(number - 1, allImages)}
+              aria-label={`Preview marquee image ${number}`}
+            >
+              <img src={asset(`05-marquee-image-0${number}.png`)} alt="" loading="lazy" />
+            </button>
           )),
         )}
       </div>
@@ -225,6 +323,9 @@ function Marquee() {
 
 function Contact({ t, onResume }) {
   const [copied, setCopied] = useState(false);
+  const [cardIndex, setCardIndex] = useState(0);
+  const contactCardImages = ["contact-card-01.png", "contact-card-02.png", "contact-card-03.png"];
+  const nextCard = () => setCardIndex((index) => (index + 1) % contactCardImages.length);
   const copyEmail = async () => {
     await navigator.clipboard?.writeText(t.contact.email);
     setCopied(true);
@@ -240,21 +341,32 @@ function Contact({ t, onResume }) {
       <div className="contact-cards reveal">
         <div className="back-card one" />
         <div className="back-card two" />
-        <img className="front-card" src={asset("contact-portrait.svg")} alt="Siyu portrait placeholder" />
+        <button className="front-card-button" onClick={nextCard} aria-label="Switch contact card" title="切换卡片">
+          <img
+            className="front-card"
+            src={asset(contactCardImages[cardIndex])}
+            onError={(event) => {
+              event.currentTarget.src = asset("contact-portrait.svg");
+            }}
+            alt="Siyu contact card"
+          />
+        </button>
+        <div className="contact-card-dots" aria-label="Contact card selector">
+          {contactCardImages.map((image, index) => (
+            <button
+              className={index === cardIndex ? "active" : ""}
+              onClick={() => setCardIndex(index)}
+              aria-label={`Show contact card ${index + 1}`}
+              key={image}
+            />
+          ))}
+        </div>
       </div>
       <article className="contact-copy reveal">
         <span className="dot" />
         <h3>{t.contact.label}</h3>
         <p className="meta">{t.contact.meta}</p>
         <p>{t.contact.body}</p>
-        <div className="arrow-row">
-          <button onClick={() => scrollToId("projects")} aria-label="Previous section">
-            <ArrowLeft size={18} />
-          </button>
-          <button onClick={() => scrollToId("home")} aria-label="Back to top">
-            <ArrowRight size={18} />
-          </button>
-        </div>
         <div className="contact-pills">
           <button onClick={copyEmail}>
             <Mail size={15} />
@@ -263,31 +375,63 @@ function Contact({ t, onResume }) {
           <a href="tel:+8618005630093">{t.contact.phone}</a>
           <button onClick={onResume}>{t.contact.resume}</button>
         </div>
+        <button className="back-home-button" onClick={() => scrollToId("home")} aria-label={t.contact.backHome} title={t.contact.backHome}>
+          <ArrowUp size={20} />
+        </button>
       </article>
       {copied && <div className="toast">{t.contact.copied}</div>}
     </section>
   );
 }
 
-function ResumePreview({ open, onClose }) {
-  if (!open) return null;
+function PdfPreview({ preview, onClose }) {
+  if (!preview) return null;
 
   return (
-    <div className="resume-modal" role="dialog" aria-modal="true" aria-label="Resume preview">
+    <div className="resume-modal" role="dialog" aria-modal="true" aria-label={preview.title || "PDF preview"}>
       <div className="resume-modal-card">
-        <button className="resume-close" onClick={onClose} aria-label="Close resume preview">
+        <button className="resume-close" onClick={onClose} aria-label="Close PDF preview">
           <X size={20} />
         </button>
-        <iframe title="Siyu Chen resume preview" src={resumePdf} />
+        <iframe title={preview.title || "PDF preview"} src={preview.src} />
       </div>
+    </div>
+  );
+}
+
+function ImagePreview({ preview, onClose, onStep }) {
+  if (!preview) return null;
+
+  return (
+    <div className="image-modal" role="dialog" aria-modal="true" aria-label="Image preview">
+      <button className="resume-close image-close" onClick={onClose} aria-label="Close image preview">
+        <X size={20} />
+      </button>
+      <button className="image-arrow image-arrow-left" onClick={() => onStep(-1)} aria-label="Previous image">
+        <ArrowLeft size={28} />
+      </button>
+      <img src={preview.images[preview.index]} alt="" />
+      <button className="image-arrow image-arrow-right" onClick={() => onStep(1)} aria-label="Next image">
+        <ArrowRight size={28} />
+      </button>
     </div>
   );
 }
 
 export default function App() {
   const [lang, setLang] = useState("zh");
-  const [resumeOpen, setResumeOpen] = useState(false);
+  const [pdfPreview, setPdfPreview] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const t = content[lang];
+
+  const openImagePreview = (index, images) => setImagePreview({ index, images });
+  const stepImagePreview = (direction) => {
+    setImagePreview((current) => {
+      if (!current) return current;
+      const nextIndex = (current.index + direction + current.images.length) % current.images.length;
+      return { ...current, index: nextIndex };
+    });
+  };
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -322,16 +466,34 @@ export default function App() {
           },
         );
       });
-      gsap.to(".marquee-track", {
-        xPercent: -28,
-        ease: "none",
-        scrollTrigger: {
-          trigger: ".marquee-section",
-          start: "top bottom",
-          end: "bottom top",
-          scrub: true,
+      gsap.fromTo(
+        ".marquee-row-1",
+        { x: -200 },
+        {
+          x: 220,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".marquee-section",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
         },
-      });
+      );
+      gsap.fromTo(
+        ".marquee-row-2",
+        { x: 200 },
+        {
+          x: -220,
+          ease: "none",
+          scrollTrigger: {
+            trigger: ".marquee-section",
+            start: "top bottom",
+            end: "bottom top",
+            scrub: true,
+          },
+        },
+      );
       gsap.utils.toArray(".project-card").forEach((card) => {
         gsap.to(card, {
           scale: card.parentElement?.style.getPropertyValue("--scale") || 1,
@@ -352,14 +514,15 @@ export default function App() {
     <>
       <Nav lang={lang} setLang={setLang} t={t} />
       <main>
-        <Hero t={t.hero} onResume={() => setResumeOpen(true)} />
+        <Hero t={t.hero} onResume={() => setPdfPreview({ src: resumePdf, title: "Siyu Chen resume preview" })} />
         <About t={t} />
         <Internship t={t} />
-        <Projects t={t} />
-        <Marquee />
-        <Contact t={t} onResume={() => setResumeOpen(true)} />
+        <Projects t={t} onOpenPdf={setPdfPreview} />
+        <Marquee onPreview={openImagePreview} />
+        <Contact t={t} onResume={() => setPdfPreview({ src: resumePdf, title: "Siyu Chen resume preview" })} />
       </main>
-      <ResumePreview open={resumeOpen} onClose={() => setResumeOpen(false)} />
+      <PdfPreview preview={pdfPreview} onClose={() => setPdfPreview(null)} />
+      <ImagePreview preview={imagePreview} onClose={() => setImagePreview(null)} onStep={stepImagePreview} />
       <div className="cursor-note">
         <MousePointer2 size={14} />
         GSAP motion
