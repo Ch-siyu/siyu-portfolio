@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, ArrowUp, Download, Languages, Mail, MousePointer
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { content } from "./data/content.js";
+import heroPortrait from "../assets/01-hero-card-01.png";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -101,26 +102,35 @@ function BadgeCard({ t, contactLabel, onContact }) {
   );
 }
 
-function Hero({ t, onResume }) {
+function Magnet({
+  children,
+  padding = 150,
+  strength = 3,
+  activeTransition = "transform 0.3s ease-out",
+  inactiveTransition = "transform 0.6s ease-in-out",
+  className = "",
+}) {
   const magnetRef = useRef(null);
 
   useEffect(() => {
     const element = magnetRef.current;
     if (!element) return undefined;
-    const xTo = gsap.quickTo(element, "x", { duration: 0.35, ease: "power3.out" });
-    const yTo = gsap.quickTo(element, "y", { duration: 0.35, ease: "power3.out" });
+
     const reset = () => {
-      xTo(0);
-      yTo(0);
+      element.style.transition = inactiveTransition;
+      element.style.transform = "translate3d(0, 0, 0)";
     };
+
     const move = (event) => {
       const rect = element.getBoundingClientRect();
       const dx = event.clientX - (rect.left + rect.width / 2);
       const dy = event.clientY - (rect.top + rect.height / 2);
-      const near = Math.abs(dx) < rect.width / 2 + 150 && Math.abs(dy) < rect.height / 2 + 150;
-      xTo(near ? dx / 3 : 0);
-      yTo(near ? dy / 3 : 0);
+      const isActive = Math.abs(dx) < rect.width / 2 + padding && Math.abs(dy) < rect.height / 2 + padding;
+
+      element.style.transition = isActive ? activeTransition : inactiveTransition;
+      element.style.transform = isActive ? `translate3d(${dx / strength}px, ${dy / strength}px, 0)` : "translate3d(0, 0, 0)";
     };
+
     window.addEventListener("mousemove", move);
     window.addEventListener("mouseup", reset);
     window.addEventListener("mouseleave", reset);
@@ -131,16 +141,45 @@ function Hero({ t, onResume }) {
       window.removeEventListener("mouseleave", reset);
       window.removeEventListener("blur", reset);
     };
-  }, []);
+  }, [activeTransition, inactiveTransition, padding, strength]);
+
+  return (
+    <div className={className} ref={magnetRef}>
+      {children}
+    </div>
+  );
+}
+
+function Hero({ t, onResume }) {
+  const [heroIntro, heroName] = t.title.split(/ (?=[\u4e00-\u9fff])/);
+  const taglineLines =
+    t.tagline === "市场营销 | 商业分析 | AI 实践 | 持续探索"
+      ? ["市场营销 | 商业分析", "AI 实践 | 持续探索"]
+      : [t.tagline];
 
   return (
     <section id="home" className="hero-section snap-panel">
-      <h1 className="hero-heading reveal">{t.title}</h1>
-      <div className="hero-portrait reveal" ref={magnetRef}>
-        <img src={asset("01-hero-card-01.png")} alt="Siyu Chen portrait" />
+      <h1 className="hero-heading hero-title reveal">
+        <span className="hero-title-intro">{heroName ? heroIntro : t.title}</span>
+        {heroName && <span className="hero-title-name">{heroName}</span>}
+      </h1>
+      <div className="hero-portrait reveal">
+        <Magnet
+          className="hero-magnet"
+          padding={150}
+          strength={3}
+          activeTransition="transform 0.3s ease-out"
+          inactiveTransition="transform 0.6s ease-in-out"
+        >
+          <img src={heroPortrait} alt="Siyu Chen portrait" />
+        </Magnet>
       </div>
       <div className="hero-bottom">
-        <p className="hero-tagline reveal">{t.tagline}</p>
+        <p className={`hero-tagline reveal${taglineLines.length > 1 ? " hero-tagline-zh" : ""}`}>
+          {taglineLines.map((line) => (
+            <span key={line}>{line}</span>
+          ))}
+        </p>
         <div className="hero-actions reveal">
           <ContactButton onClick={() => scrollToId("contact")}>{t.contact}</ContactButton>
           <button className="resume-button" onClick={onResume}>
