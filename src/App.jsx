@@ -151,7 +151,9 @@ function Magnet({
 }
 
 function Hero({ t, onResume }) {
-  const [heroIntro, heroName] = t.title.split(/ (?=[\u4e00-\u9fff])/);
+  const heroTitleMatch = t.title.match(/^(.*)\s+(陈思语|Siyu)$/);
+  const heroIntro = heroTitleMatch?.[1] ?? t.title;
+  const heroName = heroTitleMatch?.[2];
   const taglineLines =
     t.tagline === "市场营销 | 商业分析 | AI 实践 | 持续探索"
       ? ["市场营销 | 商业分析", "AI 实践 | 持续探索"]
