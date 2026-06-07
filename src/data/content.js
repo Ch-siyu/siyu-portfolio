@@ -111,7 +111,7 @@ export const content = {
     },
     contact: {
       eyebrow: "/ 联系",
-      title: "contact/聊聊吧。",
+      title: "Contact/聊聊吧。",
       label: "MKT + BA + AI",
       meta: "研究 | 内容 | 交付",
       body:

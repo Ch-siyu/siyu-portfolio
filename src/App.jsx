@@ -56,6 +56,17 @@ function BilingualLabel({ primary, secondary }) {
   );
 }
 
+function NavLabel({ item, secondary }) {
+  const primary = item === "Projects" ? "project" : item.toLowerCase();
+
+  return (
+    <span className="nav-pipe-label">
+      <span>{primary}</span>
+      <small>| {secondary}</small>
+    </span>
+  );
+}
+
 function Nav({ lang, setLang, t }) {
   const zhNav = {
     About: "关于",
@@ -69,7 +80,7 @@ function Nav({ lang, setLang, t }) {
       <nav>
         {t.nav.map((item) => (
           <button key={item} onClick={() => scrollToId(item.toLowerCase())}>
-            {lang === "zh" ? <BilingualLabel primary={item} secondary={zhNav[item]} /> : item}
+            {lang === "zh" ? <NavLabel item={item} secondary={zhNav[item]} /> : item}
           </button>
         ))}
       </nav>
@@ -198,19 +209,21 @@ function Hero({ t, onResume }) {
         </Magnet>
       </div>
       <div className="hero-bottom">
-        <p className={`hero-tagline reveal${taglineLines.length > 1 ? " hero-tagline-zh" : ""}`}>
-          {taglineLines.map((line) => (
-            <span key={line}>{line}</span>
-          ))}
-        </p>
-        <div className="hero-actions reveal">
-          <ContactButton onClick={() => scrollToId("contact")}>
-            <BilingualLabel primary={t.contact} secondary={t.contactSecondary} />
-          </ContactButton>
-          <button className="resume-button" onClick={onResume}>
-            <Download size={17} />
-            <BilingualLabel primary={t.resume} secondary={t.resumeSecondary} />
-          </button>
+        <div className="hero-cta-group reveal">
+          <p className={`hero-tagline${taglineLines.length > 1 ? " hero-tagline-zh" : ""}`}>
+            {taglineLines.map((line) => (
+              <span key={line}>{line}</span>
+            ))}
+          </p>
+          <div className="hero-actions">
+            <ContactButton onClick={() => scrollToId("contact")}>
+              <BilingualLabel primary={t.contact} secondary={t.contactSecondary} />
+            </ContactButton>
+            <button className="resume-button" onClick={onResume}>
+              <Download size={17} />
+              <BilingualLabel primary={t.resume} secondary={t.resumeSecondary} />
+            </button>
+          </div>
         </div>
       </div>
     </section>
