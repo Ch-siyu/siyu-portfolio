@@ -147,11 +147,69 @@ function Magnet({
   useEffect(() => {
     const element = magnetRef.current;
     if (!element) return undefined;
+    const isMobile = window.matchMedia("(pointer: coarse)").matches;
+    let animationFrame = 0;
+
+    const clamp = (value, min, max) => Math.min(Math.max(value, min), max);
+    const applyTransform = (transform, transition = activeTransition) => {
+      cancelAnimationFrame(animationFrame);
+      animationFrame = window.requestAnimationFrame(() => {
+        element.style.transition = transition;
+        element.style.transform = transform;
+      });
+    };
 
     const reset = () => {
-      element.style.transition = inactiveTransition;
-      element.style.transform = "translate3d(0, 0, 0)";
+      applyTransform("translate3d(0, 0, 0) rotate(0deg)", inactiveTransition);
     };
+
+    if (isMobile && "DeviceOrientationEvent" in window) {
+      let orientationEnabled = false;
+
+      const tilt = (event) => {
+        const gamma = clamp(event.gamma ?? 0, -24, 24);
+        const beta = clamp((event.beta ?? 0) - 35, -24, 24);
+        const x = gamma * 0.65;
+        const y = beta * 0.38;
+        const rotate = gamma * 0.22;
+
+        applyTransform(`translate3d(${x}px, ${y}px, 0) rotate(${rotate}deg)`, "transform 0.18s ease-out");
+      };
+
+      const enableOrientation = () => {
+        if (orientationEnabled) return;
+        orientationEnabled = true;
+        window.addEventListener("deviceorientation", tilt, true);
+      };
+
+      const requestOrientation = async () => {
+        const orientationEvent = window.DeviceOrientationEvent;
+
+        if (typeof orientationEvent?.requestPermission === "function") {
+          try {
+            const permission = await orientationEvent.requestPermission();
+            if (permission === "granted") enableOrientation();
+          } catch {
+            reset();
+          }
+        } else {
+          enableOrientation();
+        }
+      };
+
+      requestOrientation();
+      window.addEventListener("pointerdown", requestOrientation, { once: true });
+      window.addEventListener("touchstart", requestOrientation, { once: true, passive: true });
+      window.addEventListener("blur", reset);
+
+      return () => {
+        cancelAnimationFrame(animationFrame);
+        window.removeEventListener("deviceorientation", tilt, true);
+        window.removeEventListener("pointerdown", requestOrientation);
+        window.removeEventListener("touchstart", requestOrientation);
+        window.removeEventListener("blur", reset);
+      };
+    }
 
     const move = (event) => {
       const rect = element.getBoundingClientRect();
@@ -159,8 +217,10 @@ function Magnet({
       const dy = event.clientY - (rect.top + rect.height / 2);
       const isActive = Math.abs(dx) < rect.width / 2 + padding && Math.abs(dy) < rect.height / 2 + padding;
 
-      element.style.transition = isActive ? activeTransition : inactiveTransition;
-      element.style.transform = isActive ? `translate3d(${dx / strength}px, ${dy / strength}px, 0)` : "translate3d(0, 0, 0)";
+      applyTransform(
+        isActive ? `translate3d(${dx / strength}px, ${dy / strength}px, 0) rotate(0deg)` : "translate3d(0, 0, 0) rotate(0deg)",
+        isActive ? activeTransition : inactiveTransition,
+      );
     };
 
     window.addEventListener("mousemove", move);
@@ -168,6 +228,7 @@ function Magnet({
     window.addEventListener("mouseleave", reset);
     window.addEventListener("blur", reset);
     return () => {
+      cancelAnimationFrame(animationFrame);
       window.removeEventListener("mousemove", move);
       window.removeEventListener("mouseup", reset);
       window.removeEventListener("mouseleave", reset);
