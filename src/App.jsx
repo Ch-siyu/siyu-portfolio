@@ -57,7 +57,7 @@ function BilingualLabel({ primary, secondary }) {
 }
 
 function NavLabel({ item, secondary }) {
-  const primary = item === "Projects" ? "project" : item.toLowerCase();
+  const primary = item === "Projects" ? "PROJECT" : item.toUpperCase();
 
   return (
     <span className="nav-pipe-label">
@@ -608,6 +608,25 @@ export default function App() {
             end: "bottom 20%",
             scrub: true,
           },
+        });
+      });
+      gsap.matchMedia().add("(max-width: 900px)", () => {
+        gsap.utils.toArray(".project-stick").forEach((project) => {
+          gsap.fromTo(
+            project,
+            { y: 74, scale: 0.96, autoAlpha: 0 },
+            {
+              y: 0,
+              scale: 1,
+              autoAlpha: 1,
+              duration: 0.75,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: project,
+                start: "top 88%",
+              },
+            },
+          );
         });
       });
     });
