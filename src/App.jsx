@@ -15,7 +15,7 @@ const resumePdfs = {
 const projectLinks = [
   { type: "pdf", src: asset("project-01-thesis.pdf"), title: "Graduation thesis preview" },
   { type: "url", src: "https://another-me-19h.pages.dev/" },
-  { type: "pdf", src: asset("project-03-presentation.pdf"), title: "PWCES presentation preview" },
+  { type: "pdf", src: asset("project-03-presentation.pdf"), title: "PWCES presentation preview", wide: true },
 ];
 const projectImageFiles = [
   [
@@ -47,13 +47,29 @@ function ContactButton({ children, onClick }) {
   );
 }
 
+function BilingualLabel({ primary, secondary }) {
+  return (
+    <span className="bilingual-label">
+      <span>{primary}</span>
+      {secondary && <small>{secondary}</small>}
+    </span>
+  );
+}
+
 function Nav({ lang, setLang, t }) {
+  const zhNav = {
+    About: "关于",
+    Internship: "实习",
+    Projects: "项目",
+    Contact: "联系我",
+  };
+
   return (
     <header className="site-nav">
       <nav>
         {t.nav.map((item) => (
           <button key={item} onClick={() => scrollToId(item.toLowerCase())}>
-            {item}
+            {lang === "zh" ? <BilingualLabel primary={item} secondary={zhNav[item]} /> : item}
           </button>
         ))}
       </nav>
@@ -65,7 +81,7 @@ function Nav({ lang, setLang, t }) {
   );
 }
 
-function BadgeCard({ t, contactLabel, onContact }) {
+function BadgeCard({ t, contactLabel, contactSecondary, onContact }) {
   return (
     <div className="badge-wrap reveal">
       <div className="lanyard" />
@@ -100,7 +116,9 @@ function BadgeCard({ t, contactLabel, onContact }) {
           </div>
         </div>
       </div>
-      <ContactButton onClick={onContact}>{contactLabel}</ContactButton>
+      <ContactButton onClick={onContact}>
+        <BilingualLabel primary={contactLabel} secondary={contactSecondary} />
+      </ContactButton>
     </div>
   );
 }
@@ -186,10 +204,12 @@ function Hero({ t, onResume }) {
           ))}
         </p>
         <div className="hero-actions reveal">
-          <ContactButton onClick={() => scrollToId("contact")}>{t.contact}</ContactButton>
+          <ContactButton onClick={() => scrollToId("contact")}>
+            <BilingualLabel primary={t.contact} secondary={t.contactSecondary} />
+          </ContactButton>
           <button className="resume-button" onClick={onResume}>
             <Download size={17} />
-            {t.resume}
+            <BilingualLabel primary={t.resume} secondary={t.resumeSecondary} />
           </button>
         </div>
       </div>
@@ -216,7 +236,7 @@ function About({ t }) {
       <img className="about-float cube" src={asset("02-about-cube.svg")} alt="" />
       <img className="about-float bead" src={asset("02-about-bead.svg")} alt="" />
       <img className="about-float ring" src={asset("02-about-ring.svg")} alt="" />
-      <BadgeCard t={t.badge} contactLabel={t.hero.contact} onContact={() => scrollToId("contact")} />
+      <BadgeCard t={t.badge} contactLabel={t.hero.contact} contactSecondary={t.hero.contactSecondary} onContact={() => scrollToId("contact")} />
       <div className="about-copy reveal">
         <p className="section-kicker">{t.about.eyebrow}</p>
         <h2 className="hero-heading">{t.about.title}</h2>
@@ -266,9 +286,10 @@ function Internship({ t }) {
   );
 }
 
-function ProjectCard({ project, index, total, live, onOpenPdf }) {
+function ProjectCard({ project, index, total, live, liveSecondary, onOpenPdf }) {
   const images = useMemo(() => projectImageFiles[index].map(asset), [index]);
   const liveTarget = projectLinks[index];
+  const liveLabel = <BilingualLabel primary={live} secondary={liveSecondary} />;
 
   return (
     <article className="project-stick" style={{ "--scale": 1 - (total - 1 - index) * 0.025 }}>
@@ -284,11 +305,11 @@ function ProjectCard({ project, index, total, live, onOpenPdf }) {
           </div>
           {liveTarget.type === "url" ? (
             <a className="live-project-button" href={liveTarget.src} target="_blank" rel="noreferrer">
-              {live}
+              {liveLabel}
             </a>
           ) : (
             <button className="live-project-button" onClick={() => onOpenPdf(liveTarget)}>
-              {live}
+              {liveLabel}
             </button>
           )}
         </div>
@@ -317,6 +338,7 @@ function Projects({ t, onOpenPdf }) {
             index={index}
             total={t.projects.items.length}
             live={t.projects.live}
+            liveSecondary={t.projects.liveSecondary}
             onOpenPdf={onOpenPdf}
             key={project.number}
           />
@@ -439,10 +461,11 @@ function PdfPreview({ preview, onClose }) {
   if (!preview) return null;
   const activeOption = preview.resumeOptions?.[activeResume] ?? preview;
   const previewTitle = activeOption.title || preview.title || "PDF preview";
+  const iframeSrc = preview.wide && !activeOption.src.includes("#") ? `${activeOption.src}#view=FitH` : activeOption.src;
 
   return (
     <div className="resume-modal" role="dialog" aria-modal="true" aria-label={previewTitle}>
-      <div className="resume-modal-card">
+      <div className={`resume-modal-card${preview.wide ? " resume-modal-wide" : ""}`}>
         <button className="resume-close" onClick={onClose} aria-label="Close PDF preview">
           <X size={20} />
         </button>
@@ -455,7 +478,7 @@ function PdfPreview({ preview, onClose }) {
             ))}
           </div>
         )}
-        <iframe title={previewTitle} src={activeOption.src} />
+        <iframe title={previewTitle} src={iframeSrc} />
       </div>
     </div>
   );

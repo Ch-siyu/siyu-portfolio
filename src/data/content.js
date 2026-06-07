@@ -6,7 +6,9 @@ export const content = {
       title: "Hi, i'm 陈思语",
       tagline: "市场营销 | 商业分析 | AI 实践 | 持续探索",
       contact: "Contact Me",
+      contactSecondary: "联系我",
       resume: "View Resume",
+      resumeSecondary: "查看简历",
     },
     badge: {
       frontTitle: "中文名：陈思语",
@@ -81,7 +83,8 @@ export const content = {
     projects: {
       eyebrow: "/ Selected Work",
       title: "Project",
-      live: "Live Project",
+      live: "VIEW PROJECT",
+      liveSecondary: "查看项目",
       items: [
         {
           number: "01",
@@ -115,7 +118,7 @@ export const content = {
         "我关注如何把商业问题转化为清晰的用户需求，再通过数据分析、内容表达和 AI 工具实践，把想法一步步做成可以被理解、被使用的作品。",
       email: "chsiyu0902@163.com",
       phone: "+86 18005630093",
-      resume: "Resume",
+      resume: "Resume | 简历",
       copied: "邮箱已复制",
       backHome: "回到首页",
     },
@@ -201,7 +204,7 @@ export const content = {
     projects: {
       eyebrow: "/ Selected Work",
       title: "Project",
-      live: "Live Project",
+      live: "VIEW PROJECT",
       items: [
         {
           number: "01",
