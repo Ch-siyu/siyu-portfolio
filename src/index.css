@@ -839,6 +839,8 @@ img {
 
 .marquee-tile {
   display: block;
+  flex: 0 0 auto;
+  line-height: 0;
   border: 0;
   border-radius: 24px;
   background: transparent;
@@ -1285,13 +1287,15 @@ img {
   }
 
   .education-path {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: clamp(0.45rem, 2vw, 0.8rem);
+    max-width: 100%;
     transform: translateY(0.5rem);
   }
 
   .education-arrow {
     justify-self: center;
-    transform: rotate(90deg);
+    transform: none;
   }
 
   .about-float {
@@ -1323,6 +1327,24 @@ img {
 
   .project-images > img {
     min-height: 260px;
+  }
+
+  .marquee-section {
+    padding: clamp(1.4rem, 5vw, 2.4rem) 0 clamp(1.4rem, 5vw, 2.2rem);
+  }
+
+  .marquee-track {
+    gap: 0.65rem;
+  }
+
+  .marquee-track + .marquee-track {
+    margin-top: 0.65rem;
+  }
+
+  .marquee-track img {
+    width: min(74vw, 340px);
+    height: clamp(178px, 48vw, 230px);
+    border-radius: 18px;
   }
 
   .contact-heading,
@@ -1536,9 +1558,33 @@ img {
     height: 380px;
   }
 
+  .education-card {
+    border-radius: 16px;
+  }
+
+  .education-card img,
+  .education-card-fallback > div {
+    height: clamp(48px, 12vw, 64px);
+  }
+
+  .education-card h4 {
+    margin-top: 0.45rem;
+    font-size: clamp(0.72rem, 3vw, 0.88rem);
+  }
+
+  .education-card p {
+    margin-bottom: 0.48rem;
+    font-size: clamp(0.7rem, 2.8vw, 0.8rem);
+  }
+
+  .education-arrow {
+    width: 24px;
+    height: 24px;
+  }
+
   .marquee-track img {
-    width: 300px;
-    height: 210px;
+    width: min(76vw, 310px);
+    height: clamp(170px, 50vw, 210px);
   }
 
   .cursor-note {
