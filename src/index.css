@@ -860,26 +860,6 @@ img {
   transform: translateY(-3px);
 }
 
-@keyframes marquee-loop-left {
-  from {
-    transform: translate3d(0, 0, 0);
-  }
-
-  to {
-    transform: translate3d(-33.333%, 0, 0);
-  }
-}
-
-@keyframes marquee-loop-right {
-  from {
-    transform: translate3d(-33.333%, 0, 0);
-  }
-
-  to {
-    transform: translate3d(0, 0, 0);
-  }
-}
-
 .contact-section {
   position: relative;
   overflow: hidden;
@@ -1367,14 +1347,6 @@ img {
     border-radius: 18px;
   }
 
-  .marquee-row-1 {
-    animation: marquee-loop-left 24s linear infinite;
-  }
-
-  .marquee-row-2 {
-    animation: marquee-loop-right 28s linear infinite;
-  }
-
   .contact-heading,
   .contact-cards,
   .contact-copy {
@@ -1550,17 +1522,21 @@ img {
   }
 
   .hero-portrait {
-    left: 58%;
+    left: 62%;
     top: auto;
     bottom: 0;
-    width: min(82vw, 340px);
+    width: min(78vw, 330px);
     transform: translateX(-50%);
   }
 
   .hero-tagline-zh {
-    max-width: min(88vw, 360px);
-    font-size: clamp(1rem, 5vw, 1.35rem);
+    max-width: min(48vw, 190px);
+    border-radius: 16px;
+    background: rgba(215, 226, 234, 0.72);
+    padding: 0.28rem 0.38rem;
+    font-size: clamp(0.92rem, 4.45vw, 1.2rem);
     line-height: 1.22;
+    backdrop-filter: blur(8px);
   }
 
   .hero-cta-group {

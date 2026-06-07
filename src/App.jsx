@@ -673,6 +673,34 @@ export default function App() {
         });
       });
       gsap.matchMedia().add("(max-width: 900px)", () => {
+        gsap.fromTo(
+          ".marquee-row-1",
+          { xPercent: 0 },
+          {
+            xPercent: -33.333,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".marquee-section",
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          },
+        );
+        gsap.fromTo(
+          ".marquee-row-2",
+          { xPercent: -33.333 },
+          {
+            xPercent: 0,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".marquee-section",
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
+          },
+        );
         gsap.utils.toArray(".project-stick").forEach((project) => {
           gsap.fromTo(
             project,
