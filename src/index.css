@@ -1057,6 +1057,37 @@ img {
   background: white;
 }
 
+.resume-switcher {
+  position: absolute;
+  top: 0.85rem;
+  left: 50%;
+  z-index: 3;
+  display: inline-flex;
+  overflow: hidden;
+  border: 1px solid rgba(12, 12, 12, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 12px 30px rgba(12, 12, 12, 0.12);
+  backdrop-filter: blur(16px);
+  transform: translateX(-50%);
+}
+
+.resume-switcher button {
+  border: 0;
+  background: transparent;
+  color: #555;
+  padding: 0.66rem 1rem;
+  font-size: 0.78rem;
+  font-weight: 750;
+  letter-spacing: 0.04em;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.resume-switcher button.active {
+  background: var(--ink);
+  color: white;
+}
+
 .resume-close {
   position: absolute;
   top: 0.85rem;

@@ -8,7 +8,10 @@ import heroPortrait from "../assets/01-hero-card-01.png";
 gsap.registerPlugin(ScrollTrigger);
 
 const asset = (name) => `${import.meta.env.BASE_URL}assets/${name}`;
-const resumePdf = `${import.meta.env.BASE_URL}assets/陈思语_中文简历_2026.pdf`;
+const resumePdfs = {
+  zh: { label: "中文简历", src: asset("陈思语_中文简历_2026.pdf"), title: "陈思语中文简历预览" },
+  en: { label: "English Resume", src: asset("Siyu Chen_Resume_2026.pdf"), title: "Siyu Chen resume preview" },
+};
 const projectLinks = [
   { type: "pdf", src: asset("project-01-thesis.pdf"), title: "Graduation thesis preview" },
   { type: "url", src: "https://another-me-19h.pages.dev/" },
@@ -426,15 +429,33 @@ function Contact({ t, onResume }) {
 }
 
 function PdfPreview({ preview, onClose }) {
+  const [activeResume, setActiveResume] = useState(preview?.defaultResume ?? "zh");
+  useEffect(() => {
+    if (preview?.defaultResume) {
+      setActiveResume(preview.defaultResume);
+    }
+  }, [preview?.defaultResume]);
+
   if (!preview) return null;
+  const activeOption = preview.resumeOptions?.[activeResume] ?? preview;
+  const previewTitle = activeOption.title || preview.title || "PDF preview";
 
   return (
-    <div className="resume-modal" role="dialog" aria-modal="true" aria-label={preview.title || "PDF preview"}>
+    <div className="resume-modal" role="dialog" aria-modal="true" aria-label={previewTitle}>
       <div className="resume-modal-card">
         <button className="resume-close" onClick={onClose} aria-label="Close PDF preview">
           <X size={20} />
         </button>
-        <iframe title={preview.title || "PDF preview"} src={preview.src} />
+        {preview.resumeOptions && (
+          <div className="resume-switcher" aria-label="Resume language">
+            {Object.entries(preview.resumeOptions).map(([key, option]) => (
+              <button className={activeResume === key ? "active" : ""} onClick={() => setActiveResume(key)} key={key}>
+                {option.label}
+              </button>
+            ))}
+          </div>
+        )}
+        <iframe title={previewTitle} src={activeOption.src} />
       </div>
     </div>
   );
@@ -466,6 +487,12 @@ export default function App() {
   const t = content[lang];
 
   const openImagePreview = (index, images) => setImagePreview({ index, images });
+  const openResumePreview = () =>
+    setPdfPreview({
+      defaultResume: lang === "en" ? "en" : "zh",
+      resumeOptions: resumePdfs,
+      title: "Resume preview",
+    });
   const stepImagePreview = (direction) => {
     setImagePreview((current) => {
       if (!current) return current;
@@ -555,12 +582,12 @@ export default function App() {
     <>
       <Nav lang={lang} setLang={setLang} t={t} />
       <main>
-        <Hero t={t.hero} onResume={() => setPdfPreview({ src: resumePdf, title: "Siyu Chen resume preview" })} />
+        <Hero t={t.hero} onResume={openResumePreview} />
         <About t={t} />
         <Internship t={t} />
         <Projects t={t} onOpenPdf={setPdfPreview} />
         <Marquee onPreview={openImagePreview} />
-        <Contact t={t} onResume={() => setPdfPreview({ src: resumePdf, title: "Siyu Chen resume preview" })} />
+        <Contact t={t} onResume={openResumePreview} />
       </main>
       <PdfPreview preview={pdfPreview} onClose={() => setPdfPreview(null)} />
       <ImagePreview preview={imagePreview} onClose={() => setImagePreview(null)} onStep={stepImagePreview} />
