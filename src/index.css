@@ -860,6 +860,26 @@ img {
   transform: translateY(-3px);
 }
 
+@keyframes marquee-loop-left {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+
+  to {
+    transform: translate3d(-33.333%, 0, 0);
+  }
+}
+
+@keyframes marquee-loop-right {
+  from {
+    transform: translate3d(-33.333%, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 .contact-section {
   position: relative;
   overflow: hidden;
@@ -1347,6 +1367,14 @@ img {
     border-radius: 18px;
   }
 
+  .marquee-row-1 {
+    animation: marquee-loop-left 24s linear infinite;
+  }
+
+  .marquee-row-2 {
+    animation: marquee-loop-right 28s linear infinite;
+  }
+
   .contact-heading,
   .contact-cards,
   .contact-copy {
@@ -1490,7 +1518,7 @@ img {
 
   .hero-bottom {
     right: 1rem;
-    bottom: 1rem;
+    bottom: 0.9rem;
     left: 1rem;
     flex-direction: column;
     align-items: flex-start;
@@ -1503,11 +1531,13 @@ img {
 
   .hero-actions {
     justify-content: flex-start;
+    width: 100%;
+    gap: 0.65rem;
   }
 
   .hero-section {
     min-height: 100svh;
-    padding: 5.5rem 1rem 1rem;
+    padding: 5rem 1rem 1rem;
   }
 
   .hero-section .hero-heading {
@@ -1520,9 +1550,11 @@ img {
   }
 
   .hero-portrait {
-    left: 54%;
-    top: 49%;
-    width: min(72vw, 290px);
+    left: 58%;
+    top: auto;
+    bottom: 0;
+    width: min(82vw, 340px);
+    transform: translateX(-50%);
   }
 
   .hero-tagline-zh {
@@ -1532,12 +1564,13 @@ img {
   }
 
   .hero-cta-group {
-    gap: 0.85rem;
+    gap: 0.72rem;
   }
 
   .contact-button,
   .resume-button {
     width: 100%;
+    min-height: 42px;
     padding-right: 1.2rem;
     padding-left: 1.2rem;
   }

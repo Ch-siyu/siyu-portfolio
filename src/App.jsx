@@ -197,7 +197,6 @@ function Magnet({
         }
       };
 
-      requestOrientation();
       window.addEventListener("pointerdown", requestOrientation, { once: true });
       window.addEventListener("touchstart", requestOrientation, { once: true, passive: true });
       window.addEventListener("blur", reset);
@@ -631,34 +630,36 @@ export default function App() {
           },
         );
       });
-      gsap.fromTo(
-        ".marquee-row-1",
-        { x: -200 },
-        {
-          x: 220,
-          ease: "none",
-          scrollTrigger: {
-            trigger: ".marquee-section",
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
+      gsap.matchMedia().add("(min-width: 901px)", () => {
+        gsap.fromTo(
+          ".marquee-row-1",
+          { x: -200 },
+          {
+            x: 220,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".marquee-section",
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
           },
-        },
-      );
-      gsap.fromTo(
-        ".marquee-row-2",
-        { x: 200 },
-        {
-          x: -220,
-          ease: "none",
-          scrollTrigger: {
-            trigger: ".marquee-section",
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true,
+        );
+        gsap.fromTo(
+          ".marquee-row-2",
+          { x: 200 },
+          {
+            x: -220,
+            ease: "none",
+            scrollTrigger: {
+              trigger: ".marquee-section",
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            },
           },
-        },
-      );
+        );
+      });
       gsap.utils.toArray(".project-card").forEach((card) => {
         gsap.to(card, {
           scale: card.parentElement?.style.getPropertyValue("--scale") || 1,
