@@ -3,11 +3,12 @@ import { ArrowLeft, ArrowRight, ArrowUp, Download, Languages, Mail, MousePointer
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { content } from "./data/content.js";
-import heroPortrait from "../assets/01-hero-card-01.png";
+import heroPortrait from "../assets/optimized/01-hero-card-01.webp";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const asset = (name) => `${import.meta.env.BASE_URL}assets/${name}`;
+const optimizedAsset = (name) => asset(`optimized/${name}`);
 const resumePdfs = {
   zh: { label: "中文简历", src: asset("陈思语_中文简历_2026.pdf"), title: "陈思语中文简历预览" },
   en: { label: "English Resume", src: asset("Siyu Chen_Resume_2026.pdf"), title: "Siyu Chen resume preview" },
@@ -19,19 +20,19 @@ const projectLinks = [
 ];
 const projectImageFiles = [
   [
-    "04-projects-01-image-Col1image1.png",
-    "04-projects-01-image-Col1image2.png",
-    "04-projects-01-image-Col2.png",
+    "04-projects-01-image-Col1image1.webp",
+    "04-projects-01-image-Col1image2.webp",
+    "04-projects-01-image-Col2.webp",
   ],
   [
-    "04-projects-02-image-Col1image1.png",
-    "04-projects-02-image-Col1image2.png",
-    "04-projects-02-image-Col2.png",
+    "04-projects-02-image-Col1image1.webp",
+    "04-projects-02-image-Col1image2.webp",
+    "04-projects-02-image-Col2.webp",
   ],
   [
-    "04-projects-03-image-Col1image1.png",
-    "04-projects-03-image-Colimage2.png",
-    "04-projects-03-image-Col2.png",
+    "04-projects-03-image-Col1image1.webp",
+    "04-projects-03-image-Colimage2.webp",
+    "04-projects-03-image-Col2.webp",
   ],
 ];
 
@@ -99,7 +100,7 @@ function BadgeCard({ t, contactLabel, contactSecondary, onContact }) {
       <div className="badge-flip">
         <div className="badge-inner">
           <div className="badge-face badge-front">
-            <img src={asset("02-about-card-01.png")} alt="Siyu Chen badge portrait" />
+            <img src={optimizedAsset("02-about-card-01.webp")} alt="Siyu Chen badge portrait" loading="lazy" decoding="async" />
             <strong>{t.frontTitle}</strong>
             <span>{t.frontSub}</span>
             <div className="badge-tags">
@@ -265,7 +266,7 @@ function Hero({ t, onResume }) {
           activeTransition="transform 0.3s ease-out"
           inactiveTransition="transform 0.6s ease-in-out"
         >
-          <img src={heroPortrait} alt="Siyu Chen portrait" />
+          <img src={heroPortrait} alt="Siyu Chen portrait" fetchPriority="high" decoding="async" />
         </Magnet>
       </div>
       <div className="hero-bottom">
@@ -318,13 +319,13 @@ function About({ t }) {
         <AnimatedParagraph text={t.about.body} />
         <div className="education-path" aria-label="Education path">
           <article className="education-card">
-            <img src={asset("02-about-card-02.png")} alt={t.about.education[0].school} />
+            <img src={optimizedAsset("02-about-card-02.webp")} alt={t.about.education[0].school} loading="lazy" decoding="async" />
             <h4>{t.about.education[0].school}</h4>
             <p>{t.about.education[0].years}</p>
           </article>
           <ArrowRight className="education-arrow" size={34} />
           <article className="education-card">
-            <img src={asset("02-about-card-03.png")} alt={t.about.education[1].school} />
+            <img src={optimizedAsset("02-about-card-03.webp")} alt={t.about.education[1].school} loading="lazy" decoding="async" />
             <h4>{t.about.education[1].school}</h4>
             <p>{t.about.education[1].years}</p>
           </article>
@@ -360,7 +361,7 @@ function Internship({ t }) {
 }
 
 function ProjectCard({ project, index, total, live, liveSecondary, onOpenPdf }) {
-  const images = useMemo(() => projectImageFiles[index].map(asset), [index]);
+  const images = useMemo(() => projectImageFiles[index].map(optimizedAsset), [index]);
   const liveTarget = projectLinks[index];
   const liveLabel = <BilingualLabel primary={live} secondary={liveSecondary} />;
 
@@ -389,10 +390,10 @@ function ProjectCard({ project, index, total, live, liveSecondary, onOpenPdf }) 
         <p className="project-desc">{project.desc}</p>
         <div className="project-images">
           <div>
-            <img src={images[0]} alt="" />
-            <img src={images[1]} alt="" />
+            <img src={images[0]} alt="" loading="lazy" decoding="async" />
+            <img src={images[1]} alt="" loading="lazy" decoding="async" />
           </div>
-          <img src={images[2]} alt="" />
+          <img src={images[2]} alt="" loading="lazy" decoding="async" />
         </div>
       </div>
     </article>
@@ -424,7 +425,7 @@ function Projects({ t, onOpenPdf }) {
 function Marquee({ onPreview }) {
   const rowOne = [1, 2, 3, 4];
   const rowTwo = [5, 6, 7, 8, 9];
-  const allImages = [...rowOne, ...rowTwo].map((number) => asset(`05-marquee-image-0${number}.png`));
+  const allImages = [...rowOne, ...rowTwo].map((number) => optimizedAsset(`05-marquee-image-0${number}.webp`));
 
   return (
     <section className="marquee-section">
@@ -437,7 +438,7 @@ function Marquee({ onPreview }) {
               onClick={() => onPreview(number - 1, allImages)}
               aria-label={`Preview marquee image ${number}`}
             >
-              <img src={asset(`05-marquee-image-0${number}.png`)} alt="" loading="lazy" />
+              <img src={optimizedAsset(`05-marquee-image-0${number}.webp`)} alt="" loading="lazy" decoding="async" />
             </button>
           )),
         )}
@@ -451,7 +452,7 @@ function Marquee({ onPreview }) {
               onClick={() => onPreview(number - 1, allImages)}
               aria-label={`Preview marquee image ${number}`}
             >
-              <img src={asset(`05-marquee-image-0${number}.png`)} alt="" loading="lazy" />
+              <img src={optimizedAsset(`05-marquee-image-0${number}.webp`)} alt="" loading="lazy" decoding="async" />
             </button>
           )),
         )}
