@@ -464,7 +464,7 @@ function Marquee({ onPreview }) {
 function Contact({ t, onResume }) {
   const [copied, setCopied] = useState(false);
   const [cardIndex, setCardIndex] = useState(0);
-  const contactCardImages = ["contact-card-01.png", "contact-card-02.png", "contact-card-03.png"];
+  const contactCardImages = ["06-contact-card-01.webp", "06-contact-card-02.webp", "06-contact-card-03.webp"];
   const nextCard = () => setCardIndex((index) => (index + 1) % contactCardImages.length);
   const copyEmail = async () => {
     await navigator.clipboard?.writeText(t.contact.email);
@@ -484,11 +484,13 @@ function Contact({ t, onResume }) {
         <button className="front-card-button" onClick={nextCard} aria-label="Switch contact card" title="切换卡片">
           <img
             className="front-card"
-            src={asset(contactCardImages[cardIndex])}
+            src={optimizedAsset(contactCardImages[cardIndex])}
             onError={(event) => {
               event.currentTarget.src = asset("contact-portrait.svg");
             }}
             alt="Siyu contact card"
+            loading="lazy"
+            decoding="async"
           />
         </button>
         <div className="contact-card-dots" aria-label="Contact card selector">

@@ -26,6 +26,9 @@ TARGETS = {
     "05-marquee-image-07.png": 1100,
     "05-marquee-image-08.png": 1000,
     "05-marquee-image-09.png": 1100,
+    "06-contact-card-01.png": 1200,
+    "06-contact-card-02.png": 1200,
+    "06-contact-card-03.png": 1200,
 }
 
 
@@ -38,6 +41,9 @@ def main() -> None:
 
     for filename, max_side in TARGETS.items():
         source = source_dir / filename
+        if not source.exists():
+            print(f"skip missing source: {source}")
+            continue
         outputs = [output_dir / f"{source.stem}.webp" for output_dir in output_dirs]
         with Image.open(source) as image:
             image.load()
