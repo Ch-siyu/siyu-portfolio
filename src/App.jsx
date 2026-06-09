@@ -464,8 +464,24 @@ function Marquee({ onPreview }) {
 function Contact({ t, onResume }) {
   const [copied, setCopied] = useState(false);
   const [cardIndex, setCardIndex] = useState(0);
+  const [previousCardIndex, setPreviousCardIndex] = useState(null);
+  const [isCuttingCards, setIsCuttingCards] = useState(false);
+  const cutTimerRef = useRef(0);
   const contactCardImages = ["06-contact-card-01.webp", "06-contact-card-02.webp", "06-contact-card-03.webp"];
-  const nextCard = () => setCardIndex((index) => (index + 1) % contactCardImages.length);
+  const showCard = (nextIndex) => {
+    if (nextIndex === cardIndex) {
+      nextIndex = (cardIndex + 1) % contactCardImages.length;
+    }
+
+    window.clearTimeout(cutTimerRef.current);
+    setPreviousCardIndex(cardIndex);
+    setCardIndex(nextIndex);
+    setIsCuttingCards(true);
+    cutTimerRef.current = window.setTimeout(() => setIsCuttingCards(false), 620);
+  };
+
+  useEffect(() => () => window.clearTimeout(cutTimerRef.current), []);
+
   const copyEmail = async () => {
     await navigator.clipboard?.writeText(t.contact.email);
     setCopied(true);
@@ -478,26 +494,39 @@ function Contact({ t, onResume }) {
         <p className="section-kicker">{t.contact.eyebrow}</p>
         <h2>{t.contact.title}</h2>
       </div>
-      <div className="contact-cards reveal">
-        <div className="back-card one" />
-        <div className="back-card two" />
-        <button className="front-card-button" onClick={nextCard} aria-label="Switch contact card" title="切换卡片">
-          <img
-            className="front-card"
-            src={optimizedAsset(contactCardImages[cardIndex])}
-            onError={(event) => {
-              event.currentTarget.src = asset("contact-portrait.svg");
-            }}
-            alt="Siyu contact card"
-            loading="lazy"
-            decoding="async"
-          />
-        </button>
+      <div className={`contact-cards reveal${isCuttingCards ? " is-cutting" : ""}`}>
+        <div className="contact-card-deck" aria-label="Contact image cards">
+          {contactCardImages.map((image, index) => {
+            const offset = (index - cardIndex + contactCardImages.length) % contactCardImages.length;
+            const slotClass = offset === 0 ? "is-active" : offset === 1 ? "is-next" : "is-previous";
+            const wasActiveClass = isCuttingCards && index === previousCardIndex ? " was-active" : "";
+
+            return (
+              <button
+                className={`contact-image-card ${slotClass}${wasActiveClass}`}
+                onClick={() => showCard(index)}
+                aria-label={`Show contact card ${index + 1}`}
+                title="Switch contact card"
+                key={image}
+              >
+                <img
+                  src={optimizedAsset(image)}
+                  onError={(event) => {
+                    event.currentTarget.src = asset("contact-portrait.svg");
+                  }}
+                  alt="Siyu contact card"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </button>
+            );
+          })}
+        </div>
         <div className="contact-card-dots" aria-label="Contact card selector">
           {contactCardImages.map((image, index) => (
             <button
               className={index === cardIndex ? "active" : ""}
-              onClick={() => setCardIndex(index)}
+              onClick={() => showCard(index)}
               aria-label={`Show contact card ${index + 1}`}
               key={image}
             />
