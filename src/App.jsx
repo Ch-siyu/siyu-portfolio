@@ -258,7 +258,7 @@ function Hero({ t, onResume }) {
         <span className="hero-title-intro">{heroName ? heroIntro : t.title}</span>
         {heroName && <span className="hero-title-name">{heroName}</span>}
       </h1>
-      <div className="hero-portrait reveal">
+      <div className="hero-portrait">
         <Magnet
           className="hero-magnet"
           padding={150}
@@ -566,7 +566,8 @@ function PdfPreview({ preview, onClose }) {
   if (!preview) return null;
   const activeOption = preview.resumeOptions?.[activeResume] ?? preview;
   const previewTitle = activeOption.title || preview.title || "PDF preview";
-  const iframeSrc = preview.wide && !activeOption.src.includes("#") ? `${activeOption.src}#view=FitH` : activeOption.src;
+  const directSrc = activeOption.src;
+  const iframeSrc = !activeOption.src.includes("#") ? `${activeOption.src}#view=FitH` : activeOption.src;
 
   return (
     <div className="resume-modal" role="dialog" aria-modal="true" aria-label={previewTitle}>
@@ -583,6 +584,10 @@ function PdfPreview({ preview, onClose }) {
             ))}
           </div>
         )}
+        <a className="resume-open-link" href={directSrc} target="_blank" rel="noreferrer">
+          OPEN PDF
+          <small>直接预览</small>
+        </a>
         <iframe title={previewTitle} src={iframeSrc} />
       </div>
     </div>
