@@ -228,7 +228,7 @@ export const content = {
     },
     contact: {
       eyebrow: "/ Contact",
-      title: "contact/let's talk.",
+      title: "Contact / Let's talk",
       label: "MKT + BA + AI",
       meta: "Research | Content | Delivery",
       body:

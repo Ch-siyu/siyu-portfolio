@@ -251,6 +251,10 @@ function Hero({ t, onResume }) {
     t.tagline === "市场营销 | 商业分析 | AI 实践 | 持续探索"
       ? ["市场营销 | 商业分析", "AI 实践 | 持续探索"]
       : [t.tagline];
+  const displayedTaglineLines =
+    t.tagline === "Marketing | Business Analytics | AI Practice | Continuous Exploration"
+      ? ["Marketing | Business Analytics", "AI Practice | Continuous Exploration"]
+      : taglineLines;
 
   return (
     <section id="home" className="hero-section snap-panel">
@@ -271,8 +275,8 @@ function Hero({ t, onResume }) {
       </div>
       <div className="hero-bottom">
         <div className="hero-cta-group reveal">
-          <p className={`hero-tagline${taglineLines.length > 1 ? " hero-tagline-zh" : ""}`}>
-            {taglineLines.map((line) => (
+          <p className={`hero-tagline${displayedTaglineLines.length > 1 ? " hero-tagline-featured" : ""}`}>
+            {displayedTaglineLines.map((line) => (
               <span key={line}>{line}</span>
             ))}
           </p>

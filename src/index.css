@@ -201,7 +201,7 @@ img {
   display: block;
 }
 
-.hero-tagline-zh {
+.hero-tagline-featured {
   max-width: 520px;
   font-size: clamp(1.15rem, 2.1vw, 2.2rem);
   font-weight: 650;
@@ -1648,8 +1648,8 @@ img {
     transform: translateX(-50%);
   }
 
-  .hero-tagline-zh {
-    max-width: min(48vw, 190px);
+  .hero-tagline-featured {
+    max-width: min(68vw, 310px);
     border-radius: 16px;
     background: rgba(215, 226, 234, 0.72);
     padding: 0.28rem 0.38rem;
